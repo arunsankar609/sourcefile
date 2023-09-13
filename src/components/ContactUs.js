@@ -3,10 +3,20 @@ import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 const ContactUs = () => {
-  const [formData,setFormData]=useState({firstname:"",address:"",state:"",secondName:"",phoneNumber:"",pincode:"",gender:"",address:"",date:""})
+  const [formData, setFormData] = useState({
+    firstname: "",
+    address: "",
+    state: "",
+    secondName: "",
+    phoneNumber: "",
+    pincode: "",
+    gender: "",
+    date: ""
+  })
 
   const [startDate, setStartDate] = useState(new Date());
   const onSubmitData=(e)=>{
+    e.preventDefault();
     setFormData({...formData,
       [e.target.name]:e.target.value})
     console.log("formData",formData);
@@ -21,14 +31,14 @@ const ContactUs = () => {
             placeholder="firstName"
             name="firstName"
             value={formData.firstname}
-            onChange={(e)=>setFormData(e.target.value)}
+            onChange={(e) => setFormData({ ...formData, firstname: e.target.value })}
           />
           <input
             className="border-2 border-cyan-500 m-2"
             placeholder="secondName"
             name="secondName"
             value={formData.secondName}
-            onChange={(e)=>setFormData(e.target.value)}
+            onChange={(e) => setFormData({ ...formData, secondName: e.target.value })}
           />
         </div>
         <div>
@@ -37,39 +47,40 @@ const ContactUs = () => {
             placeholder="PhoneNumber"
             name="phoneNumber"
             value={formData.phoneNumber}
-            onChange={(e)=>setFormData(e.target.value)}
+            onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
           />
           <input
             className="border-2 border-cyan-500 m-2"
             placeholder="pincode"
             name="pincode"
             value={formData.pincode}
-            onChange={(e)=>setFormData(e.target.value)}
+            onChange={(e) => setFormData({ ...formData, pincode: e.target.value })}
           />
         </div>
         <h1>Gender</h1>
         <div className="flex">
           <div className="flex">
             <h1>Male</h1>
-            <input type="radio" name="gender" value="male" onChange={(e)=>setFormData(e.target.value)} />
+            <input type="radio" name="gender" value="male" onChange={(e) => setFormData({ ...formData, gender: e.target.value })} />
           </div>
           <div className="flex mx-4">
             <h1>Female</h1>
-            <input type="radio" name="gender" value="female" onChange={(e)=>setFormData(e.target.value)} />
+            <input type="radio" name="gender" value="female" onChange={(e) => setFormData({ ...formData, gender: e.target.value })} />
           </div>
         </div>
         <div>
           <h1>Select your DOB</h1>
           <DatePicker
-          name="date"
-            selected={startDate}
-           value={formData.date}
-            onChange={(date) => setFormData(date)}
-          />
+  selected={startDate}
+  onChange={(date) => {
+    setStartDate(date);
+    setFormData({ ...formData, date: date });
+  }}
+/>
         </div>
         <div>
           <h1>Select your State</h1>
-          <select name="state" value={formData.state} onChange={(e)=>setFormData(e.target.value)}>
+          <select name="state" value={formData.state} onChange={(e) => setFormData({ ...formData, state: e.target.value })}>
             <option value="Kerala">kerala</option>
             <option value="TamilNaadu">TamilNaadu</option>
             <option value="Karnataka">Karnataka</option>
@@ -79,7 +90,12 @@ const ContactUs = () => {
         </div>
         <div>
           <h1>Address</h1>
-          <textarea name="address" value={formData.address} onChange={(e)=>setFormData(e.target.value)} className="border-2 border-cyan-500 m-2"/>
+          <textarea
+  name="address"
+  value={formData.address}
+  onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+  className="border-2 border-cyan-500 m-2"
+/>
         </div>
         <div>
           <button onClick={onSubmitData} className="bg-blue-800 text-white rounded-sm m-3">Submit</button>
